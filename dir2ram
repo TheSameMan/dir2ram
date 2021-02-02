@@ -1,13 +1,14 @@
 #!/bin/sh
 
-#origins
+#origins priority list
 src=(
-    ~/.cache/mozilla/firefox/h70uxj20.default
     ~/.mozilla/firefox/h70uxj20.default
+    ~/.cache/mozilla/firefox/h70uxj20.default
 )
 
+dst=/run/media/$USER/Storage/.ram #folder on HDD
+
 ram=/dev/shm
-dst=/run/media/$USER/Storage/.ram
 
 IFS=
 set -efu
@@ -16,21 +17,24 @@ set -efu
 for s in ${src[@]}
 do
     r=${s////-} #unique folder name
- 
+
     if [ ! -r $ram/$r ]; then
         mkdir -m0700 $ram/$r
     fi
 
     if [ -z $(readlink $s) ]; then
         mv $s $dst/$r #origin to HDD
-        ln -s $ram/$r $s #create symbolic link to RAM
+        ln -s $dst/$r $s #create symbolic link to folder in HDD
     fi
 
     #sync files in RAM and HDD
     if [ -e $s/.inram ]; then
         rsync -av --delete --exclude .inram $s/ $dst/$r
     else
-        rsync -av $dst/$r/ $s/
-        touch $s/.inram #origins is in RAM now
+        rsync -av $dst/$r/ $ram/$r/
+        touch $ram/$r/.inram #origin is in RAM now
     fi
+
+    rm $s
+    ln -s $ram/$r $s #create symbolic link to folder in RAM
 done

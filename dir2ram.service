@@ -1,5 +1,5 @@
 [Unit]
-Description=Firefox profile memory cache
+Description=Transferring folders from SSD to RAM and periodic backup to HDD
 
 [Install]
 WantedBy=default.target

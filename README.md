@@ -1,5 +1,5 @@
 # dir2ram
-This repository contains a bash script for transferring folders with SSD to RAM and periodic backup to HDD in order to reduce unnecessary SSD rewriting cycles. 
+This repository contains a bash script for transferring folders from SSD to RAM and periodic backup to HDD in order to reduce unnecessary SSD rewriting cycles. 
 
 ## System requirements:
   Arch-based Linux (tested in Manjaro 20.2.1)  
@@ -8,7 +8,8 @@ This repository contains a bash script for transferring folders with SSD to RAM 
   Free space on HDD (**should be auto-mountable for sync**)  
 
 ## Instructions
-The script contains the **src** list, which contains the paths to the cache folders and firefox profile. If necessary, this list is expanded with the additional folders. 
+The script contains the **src** priority list, which contains the paths to the cache folders and firefox profile. If necessary, this list is expanded with the additional folders. 
+For better performance at startup fill **src** with priority.
 
 1. Fill **src** in the script file with the required directories. Set **dst** path to the folder on the HDD.
 
